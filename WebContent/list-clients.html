@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste</title>
+</head>
+<body>
+
+
+<!-- MENU -->
+<h1 class="tit">Menu</h1>
+
+<a href="new-client.html">Cadastrar Cliente</a>
+<br>
+<a href="edit-provider.html">Editar Fornecedor</a><!-- CRIAR UM FORNECEDOR FICTÍCIO PARA EDITAR -->
+<br>
+<a href="list-provider-pf.html">Listar Fornecedores Pessoa Jurídica</a>
+<br>
+<a href="upload-file.html">Enviar Foto</a><!-- SALVAR EM QUALQUER LOCAL -->
+<br>
+<a href="list-clients.html">Listar Clientes</a>
+
+
+<!-- FORMULARIO -->
+<!-- OBS:
+        Já inserir os dados nos campos para alterar
+-->
+<h1 class="tit">Lista de Clientes</h1>
+
+<div class="result">
+    <!-- AQUI ENTRA O JSON PURO QUE O SISTEMA RETORNAR -->
+</div>
+
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="MooTools-Core-1.5.2.js"></script>
+<script type="text/javascript">
+    
+    //DADOS PARA ENVIO
+    var data = {
+        model : 'client',
+        action : 'list',
+        parameters : {}
+    };
+
+    //AJAX ENVIAR DADOS
+    var b = $$('#b');
+    var myElement = $$('#result');
+    var myRequest = new Request({
+        url: 'webservice/my-link.xxx',
+        method: 'post',
+        onRequest: function(){
+            myElement.set('text', 'loading...');
+        },
+        onSuccess: function(responseText){
+            myElement.set('text', responseText);
+        },
+        onFailure: function(){
+            myElement.set('text', 'Erro ao Conectar');
+        }
+    });
+
+    // send AJAX
+    b.addEvent('click', function(){
+        myRequest.send(data);
+    });
+
+</script>
+</body>
+</html>

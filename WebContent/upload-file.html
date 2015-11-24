@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste</title>
+</head>
+<body>
+
+
+<!-- MENU -->
+<h1 class="tit">Menu</h1>
+
+<a href="new-client.html">Cadastrar Cliente</a>
+<br>
+<a href="edit-provider.html">Editar Fornecedor</a><!-- CRIAR UM FORNECEDOR FICTÍCIO PARA EDITAR -->
+<br>
+<a href="list-provider-pf.html">Listar Fornecedores Pessoa Jurídica</a>
+<br>
+<a href="upload-file.html">Enviar Foto</a><!-- SALVAR EM QUALQUER LOCAL -->
+<br>
+<a href="list-clients.html">Listar Clientes</a>
+
+
+<!-- FORMULARIO -->
+<h1 class="tit">Enviar Foto</h1>
+<form action="upload.xxx" method="post" id="upload">
+  <input type="file" name="file" id="file" accept="image/*" />
+  <input type="text" name="name" value="wBruno" />
+  <input type="submit" value="Send!" />
+</form>
+<div id="preview"></div>
+
+
+<!-- SCRIPTS -->
+<script>
+var $formUpload = document.getElementById('upload'),
+    $preview = document.getElementById('preview'),
+    i = 0;
+
+$formUpload.addEventListener('submit', function(event){
+  event.preventDefault();
+
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", $formUpload.getAttribute('action'));
+
+  var formData = new FormData($formUpload);
+  formData.append("i", i++);
+  xhr.send(formData);
+
+  xhr.addEventListener('readystatechange', function() {
+    if (xhr.readyState === 4 && xhr.status == 200) {
+      var json = JSON.parse(xhr.responseText);
+
+      if (!json.error && json.status === 'ok') {
+        $preview.innerHTML += '<br />Enviado!!';
+      } else {
+        $preview.innerHTML = 'Arquivo não enviado';
+      }
+    } else {
+      $preview.innerHTML = xhr.statusText;
+    }
+  });
+
+  xhr.upload.addEventListener("progress", function(e) {
+    if (e.lengthComputable) {
+      var percentage = Math.round((e.loaded * 100) / e.total);
+      $preview.innerHTML = String(percentage) + '%';
+    }
+  }, false);
+
+  xhr.upload.addEventListener("load", function(e){
+    $preview.innerHTML = String(100) + '%';
+  }, false);
+
+}, false);
+
+</script>
+
+</body>
+</html>

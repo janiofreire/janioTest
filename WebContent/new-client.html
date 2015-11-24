@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>cadastrar cliente</title>
+</head>
+<body>
+
+
+<!-- MENU -->
+<h1 class="tit">Menu</h1>
+
+<a href="new-client.html">Cadastrar Cliente</a>
+<br>
+<a href="edit-provider.html">Editar Fornecedor</a><!-- CRIAR UM FORNECEDOR FICTÍCIO PARA EDITAR -->
+<br>
+<a href="list-provider-pf.html">Listar Fornecedores Pessoa Jurídica</a>
+<br>
+<a href="upload-file.html">Enviar Foto</a><!-- SALVAR EM QUALQUER LOCAL -->
+<br>
+<a href="list-clients.html">Listar Clientes</a>
+
+
+<!-- FORMULARIO -->
+<h1 class="tit">Cadastrar Cliente</h1>
+<form id="newclient" method="POST">
+    <input name="name" id="name" type="text" placeholder="Nome" required>
+    <br><br>
+    <input name="address" id="address" type="text" placeholder="Endereço" required>
+    <br><br>
+    <input class="phone" maxlength="15" name="phone" id="phone" type="text" placeholder="Telefone" required>
+    <br><br>
+    <input name="cpf" maxlength="14" id="cpf" type="text" placeholder="CPF">
+    <br><br>
+    
+</form>
+
+<button id="b">Enviar</button>
+
+<div class="result"></div>
+
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="MooTools-Core-1.5.2.js"></script>
+<script type="text/javascript">
+    
+    
+    
+
+    //AJAX
+    var b = $$('#b');
+    var myElement = $$('#result');
+    var myRequest = new Request({
+        url: 'http://localhost:8080/TesteJanio/rest/client/new',
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        onRequest: function(){
+            myElement.set('text', 'loading...');
+        },
+        onSuccess: function(responseText){ //alert("teste")
+        	console.log('success');
+            myElement.set('text', responseText);
+        },
+        onFailure: function(){
+            myElement.set('text', 'Erro ao Conectar');
+        }
+    });
+
+    // send AJAX
+    b.addEvent('click', function(){
+    	
+    	//DADOS PARA ENVIO
+        var data = {
+                name : document.getElementById('name').value,
+                address : document.getElementById('address').value,
+                phone : document.getElementById('phone').value,
+                cpf : document.getElementById('cpf').value
+        };
+    	
+    	console.log(data);
+    	
+    	//data = JSON.stringify(data)
+        myRequest.send(data);
+    });
+
+</script>
+</body>
+</html>
