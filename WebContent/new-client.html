@@ -51,8 +51,8 @@
     var myElement = $$('#result');
     var myRequest = new Request({
         url: 'http://localhost:8080/TesteJanio/rest/client/new',
-        method: 'POST',
-        contentType: 'application/json',
+        method: 'post',
+        contentType: 'application/json; charSet=UTF-8',
         dataType: 'json',
         onRequest: function(){
             myElement.set('text', 'loading...');
@@ -79,8 +79,10 @@
     	
     	console.log(data);
     	
-    	//data = JSON.stringify(data)
+    	data = JSON.stringify(data)
+    	//data = "{}";
         myRequest.send(data);
+    	//myRequest.post(data);
     });
 
 </script>

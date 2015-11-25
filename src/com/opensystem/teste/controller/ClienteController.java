@@ -3,7 +3,6 @@ package com.opensystem.teste.controller;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,9 +19,9 @@ public class ClienteController extends MainController<Client>{
 	
 	@GET
 	@Path("/teste")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String teste(){
-		return "teste";
+	@Produces(MediaType.APPLICATION_JSON)
+	public Client teste(){
+		return new Client("teste", "teste", "teste", "teste");
 	}
 	
 	@POST
