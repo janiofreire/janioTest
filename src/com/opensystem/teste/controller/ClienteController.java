@@ -3,6 +3,7 @@ package com.opensystem.teste.controller;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -25,8 +26,15 @@ public class ClienteController extends MainController<Client>{
 	}
 	
 	@POST
+	@Path("/new2")
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+	public void insert2(@FormParam("name")String name, @FormParam("adress")String adress, @FormParam("phone")String phone, @FormParam("cpf")String cpf) {
+		clienteDAO.insert(new Client(name, adress, cpf, phone));
+	}
+	
+	@POST
 	@Path("/new")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes({MediaType.APPLICATION_JSON})
 	@Override
 	public void insert(Client object) {
 		clienteDAO.insert(object);

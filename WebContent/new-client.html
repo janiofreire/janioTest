@@ -22,7 +22,8 @@
 
 <!-- FORMULARIO -->
 <h1 class="tit">Cadastrar Cliente</h1>
-<form id="newclient" method="POST">
+<form id="newclient" method="POST" action="http://localhost:8080/TesteJanio/rest/client/new2">
+	<input type="hidden" id="id" value="0">
     <input name="name" id="name" type="text" placeholder="Nome" required>
     <br><br>
     <input name="address" id="address" type="text" placeholder="Endereço" required>
@@ -31,10 +32,10 @@
     <br><br>
     <input name="cpf" maxlength="14" id="cpf" type="text" placeholder="CPF">
     <br><br>
-    
+    <input type="submit" value="Enviar2">
 </form>
 
-<button id="b">Enviar</button>
+ <button id="b">Enviar</button>
 
 <div class="result"></div>
 
@@ -71,6 +72,7 @@
     	
     	//DADOS PARA ENVIO
         var data = {
+        		id : document.getElementById('id').value,
                 name : document.getElementById('name').value,
                 address : document.getElementById('address').value,
                 phone : document.getElementById('phone').value,
